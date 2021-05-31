@@ -1,0 +1,36 @@
+.Dashboard {
+  margin-top: 100px;
+  width: 900px;
+}
+
+.Dashboard-title {
+  font-size: 32px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.Dashboard-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 40px !important;
+  padding: 40px;
+}
+
+.Dashboard-cards {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Dashboard-input {
+  width: 200px;
+  align-self: center;
+  margin-bottom: 40px !important;
+}
+
+.Dashboard-settings-button {
+  margin-top: 20px !important;
+}

@@ -39,6 +39,7 @@ export default function Login() {
         <form onSubmit={login}>
           <TextField
             fullWidth
+            type="email"
             name="email"
             label="E-mail"
             variant="outlined"
