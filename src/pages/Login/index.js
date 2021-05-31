@@ -31,8 +31,6 @@ export default function Login() {
     })
   }
 
-  console.log(data)
-
   return (
     <div className="Login">
       <Paper classes={{ root: 'Login-content' }}>

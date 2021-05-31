@@ -1,6 +1,6 @@
 .Login {
   margin-top: 100px;
-  max-width: 600px;
+  width: 600px;
 }
 
 .Login-title {
@@ -10,10 +10,6 @@
 
 .Login-content {
   padding: 40px;
-}
-
-.Login-input {
-  margin-bottom: 20px;
 }
 
 .Login-button {
