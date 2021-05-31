@@ -1,0 +1,21 @@
+.Login {
+  margin-top: 100px;
+  max-width: 600px;
+}
+
+.Login-title {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.Login-content {
+  padding: 40px;
+}
+
+.Login-input {
+  margin-bottom: 20px;
+}
+
+.Login-button {
+  margin-top: 20px !important;
+}
