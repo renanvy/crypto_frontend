@@ -1,0 +1,21 @@
+.Settings {
+  margin-top: 100px;
+  width: 600px;
+}
+
+.Settings-title {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.Settings-content {
+  padding: 40px;
+}
+
+.Settings-button {
+  margin-top: 20px !important;
+}
+
+.Settings-back_button {
+  margin-bottom: 20px !important;
+}
