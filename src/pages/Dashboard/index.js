@@ -8,18 +8,33 @@ import {
   Typography,
   Divider
 } from '@material-ui/core'
+import numeral from 'numeral'
 
 import './styles.css'
 import Loading from '../../common_components/Loading'
+import { BitcoinPricesService } from '../../services'
 
 export default function Dashboard() {
-  const [btcValue, setBtcValue] = useState(1)
+  const [btcQuantity, setBtcQuantity] = useState(1)
   const [loading, setLoading] = useState(true)
+  const [calculating, setCalculating] = useState(false)
+  const [bitcoinPrices, setBitcoinPrices] = useState({})
 
   useEffect(() => {
     const calculateBtc = async () => {
       try {
         setLoading(true)
+
+        const response = await BitcoinPricesService.get()
+
+        if (!response.ok) {
+          const errors = await response.json()
+          throw errors
+        }
+
+        const result = await response.json()
+
+        setBitcoinPrices(result)
       } catch (error) {
         console.error(error)
       } finally {
@@ -29,6 +44,16 @@ export default function Dashboard() {
 
     calculateBtc()
   }, [])
+
+  const renderPrice = (currency) => {
+    if (calculating) {
+      return <Loading showMessage={false} />
+    }
+
+    return numeral(
+      bitcoinPrices['bpi'][currency]['rate_float'] * btcQuantity
+    ).format('0,0.0000')
+  }
 
   if (loading) {
     return <Loading />
@@ -55,14 +80,28 @@ export default function Dashboard() {
       <Paper classes={{ root: 'Dashboard-content' }}>
         <TextField
           type="number"
-          name="btcValue"
           label="BTC"
           variant="outlined"
           margin="normal"
           autoFocus
-          onChange={(evt) => setBtcValue(evt.target.value)}
-          value={btcValue}
-          size="large"
+          InputProps={{ inputProps: { min: 1 } }}
+          onChange={(evt) => {
+            const value = Number(evt.target.value)
+
+            if (!value || value <= 0) {
+              return
+            }
+
+            setBtcQuantity(value)
+            setCalculating(true)
+
+            setTimeout(() => {
+              setCalculating(false)
+            }, 1000)
+          }}
+          value={btcQuantity}
+          size="medium"
+          disabled={calculating}
           classes={{ root: 'Dashboard-input' }}
         />
 
@@ -75,7 +114,7 @@ export default function Dashboard() {
                 $ USD
               </Typography>
               <Typography variant="h5" component="h2">
-                6000,00
+                {renderPrice('USD')}
               </Typography>
             </CardContent>
           </Card>
@@ -86,7 +125,7 @@ export default function Dashboard() {
                 R$ BRL
               </Typography>
               <Typography variant="h5" component="h2">
-                6000,00
+                {renderPrice('BRL')}
               </Typography>
             </CardContent>
           </Card>
@@ -97,7 +136,7 @@ export default function Dashboard() {
                 € EUR
               </Typography>
               <Typography variant="h5" component="h2">
-                6000,00
+                {renderPrice('EUR')}
               </Typography>
             </CardContent>
           </Card>
@@ -108,7 +147,7 @@ export default function Dashboard() {
                 C$ CAD
               </Typography>
               <Typography variant="h5" component="h2">
-                6000,00
+                {renderPrice('CAD')}
               </Typography>
             </CardContent>
           </Card>

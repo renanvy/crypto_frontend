@@ -1,3 +1,4 @@
+import BitcoinPricesService from './bitcoin_prices'
 import AccountsService from './accounts'
 
-export { AccountsService }
+export { BitcoinPricesService, AccountsService }
