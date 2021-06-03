@@ -8,25 +8,37 @@ import {
   InputLabel,
   FormControl
 } from '@material-ui/core'
+import { SettingsService } from '../../services'
 
 import './styles.css'
 import Loading from '../../common_components/Loading'
+
+const CURRENCY_TYPES = ['BRL', 'EUR', 'CAD']
 
 export default function Settings() {
   const [saving, setSaving] = useState(false)
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState({
     currency: '',
-    currencyValue: '',
-    newCurrencyValue: ''
+    currencyValue: ''
   })
+  const [currencies, setCurrencies] = useState([])
 
   useEffect(() => {
-    const fetchSettings = async () => {
+    const fetchCurrencies = async () => {
       try {
         setLoading(true)
 
-        // setData(...)
+        const response = await SettingsService.list_currencies()
+
+        if (!response.ok) {
+          const errors = await response.json()
+          throw errors
+        }
+
+        const result = await response.json()
+
+        setCurrencies(result)
       } catch (error) {
         console.error(error)
       } finally {
@@ -34,7 +46,7 @@ export default function Settings() {
       }
     }
 
-    fetchSettings()
+    fetchCurrencies()
   }, [])
 
   const save = async (evt) => {
@@ -43,8 +55,19 @@ export default function Settings() {
     try {
       setSaving(true)
 
+      const response = await SettingsService.update_currency({
+        currency: data.currency,
+        value: data.currencyValue
+      })
+
+      if (!response.ok) {
+        const errors = await response.json()
+        throw errors
+      }
+
       window.location = '/'
     } catch (error) {
+      setSaving(false)
       console.error(error)
     }
   }
@@ -87,21 +110,25 @@ export default function Settings() {
               label="Moeda"
               name="currency"
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              {CURRENCY_TYPES.map((currency) => (
+                <MenuItem value={currency} key={currency}>
+                  {currency}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
 
           <TextField
             fullWidth
-            name="newCurrencyValue"
+            name="currencyValue"
             label="Novo Valor"
             variant="outlined"
             margin="normal"
             onChange={updateField}
-            value={data.newCurrencyValue}
-            helperText={`Valor atual: ${data.currencyValue}`}
+            value={data.currencyValue}
+            helperText={
+              data.currency ? `Valor atual: ${currencies[data.currency]}` : ''
+            }
           />
 
           <Button
