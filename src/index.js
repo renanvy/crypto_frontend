@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'normalize.css'
 import 'fontsource-roboto'
 import './global_styles.css'
 import Routes from './routes'
