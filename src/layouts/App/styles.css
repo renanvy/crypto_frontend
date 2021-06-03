@@ -1,0 +1,14 @@
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
+.App-container {
+  margin-top: 100px;
+  width: 900px;
+}
+
+.App-logout-btn  {
+  align-self: flex-end;
+  width: 100px;
+}

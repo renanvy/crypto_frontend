@@ -4,14 +4,16 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import DashboardPage from './pages/Dashboard'
 import LoginPage from './pages/Login'
 import SettingsPage from './pages/Settings'
+import PrivateRoute from './private_routes'
 
 export default function Routes() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={DashboardPage} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/settings" component={SettingsPage} />
+
+        <PrivateRoute exact path="/" component={DashboardPage} />
+        <PrivateRoute path="/settings" component={SettingsPage} />
       </Switch>
     </Router>
   )

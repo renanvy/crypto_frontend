@@ -1,14 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'normalize.css'
-import 'fontsource-roboto'
-import './global_styles.css'
-import Routes from './routes'
+import App from './layouts/App'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Routes />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 )

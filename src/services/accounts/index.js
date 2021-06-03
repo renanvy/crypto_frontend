@@ -9,6 +9,12 @@ const Accounts = {
 
     const response = await httpClient.post(path, payload, headers)
     return response
+  },
+
+  logout() {
+    localStorage.removeItem('sessionToken')
+
+    window.location = '/login'
   }
 }
 
