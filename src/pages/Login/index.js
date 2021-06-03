@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { TextField, Button, Paper } from '@material-ui/core'
+
 import './styles.css'
+import { AccountsService } from '../../services'
 
 export default function Login() {
   const [loading, setLoading] = useState(false)
@@ -14,6 +16,17 @@ export default function Login() {
 
     try {
       setLoading(true)
+
+      const response = await AccountsService.login(data)
+
+      if (!response.ok) {
+        const errors = await response.json()
+        throw errors
+      }
+
+      const result = await response.json()
+
+      window.localStorage.setItem('sessionToken', result.token)
 
       window.location = '/'
     } catch (error) {
@@ -29,6 +42,10 @@ export default function Login() {
       ...data,
       [evt.target.name]: value
     })
+  }
+
+  const isValidForm = () => {
+    return data.email && data.password
   }
 
   return (
@@ -50,6 +67,7 @@ export default function Login() {
           />
 
           <TextField
+            type="password"
             fullWidth
             name="password"
             label="Senha"
@@ -65,7 +83,7 @@ export default function Login() {
             color="primary"
             size="large"
             classes={{ root: 'Login-button' }}
-            disabled={loading}
+            disabled={loading || !isValidForm()}
           >
             {loading ? 'Logando...' : 'Entrar'}
           </Button>
