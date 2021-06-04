@@ -138,6 +138,7 @@ export default function Settings() {
           )}
 
           <TextField
+            type="number"
             fullWidth
             error={renderError('value')}
             name="currencyValue"
