@@ -8,6 +8,8 @@ import './styles.css'
 import Routes from '../../routes'
 import { AccountsService } from '../../services'
 import { getSessionToken } from '../../helpers'
+import { GlobalProvider } from '../../contexts/GlobalContext'
+import Snackbars from './Snackbars'
 
 export default function App() {
   const renderLogoutBtn = () => {
@@ -27,12 +29,16 @@ export default function App() {
   }
 
   return (
-    <div className="App">
-      {renderLogoutBtn()}
+    <GlobalProvider>
+      <div className="App">
+        <Snackbars />
 
-      <div className="App-container">
-        <Routes />
+        {renderLogoutBtn()}
+
+        <div className="App-container">
+          <Routes />
+        </div>
       </div>
-    </div>
+    </GlobalProvider>
   )
 }

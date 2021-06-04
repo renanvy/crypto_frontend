@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   Button,
   Paper,
@@ -13,12 +13,13 @@ import numeral from 'numeral'
 import './styles.css'
 import Loading from '../../common_components/Loading'
 import { BitcoinPricesService } from '../../services'
+import { GlobalContext } from '../../contexts/GlobalContext'
 
 export default function Dashboard() {
   const [btcQuantity, setBtcQuantity] = useState(1)
-  const [loading, setLoading] = useState(true)
   const [calculating, setCalculating] = useState(false)
   const [bitcoinPrices, setBitcoinPrices] = useState({})
+  const { setErrorMessage, setLoading, loading } = useContext(GlobalContext)
 
   useEffect(() => {
     const calculateBtc = async () => {
@@ -36,7 +37,9 @@ export default function Dashboard() {
 
         setBitcoinPrices(result)
       } catch (error) {
-        console.error(error)
+        setErrorMessage(
+          'Não foi possível calcular. Tente novamente mais tarde.'
+        )
       } finally {
         setLoading(false)
       }

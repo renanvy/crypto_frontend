@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { TextField, Button, Paper } from '@material-ui/core'
 
 import './styles.css'
 import { AccountsService } from '../../services'
+import { GlobalContext } from '../../contexts/GlobalContext'
 
 export default function Login() {
-  const [loading, setLoading] = useState(false)
+  const { setErrorMessage } = useContext(GlobalContext)
+  const [requesting, setRequesting] = useState(false)
   const [data, setData] = useState({
     email: '',
     password: ''
@@ -15,7 +17,7 @@ export default function Login() {
     evt.preventDefault()
 
     try {
-      setLoading(true)
+      setRequesting(true)
 
       const response = await AccountsService.login(data)
 
@@ -30,8 +32,8 @@ export default function Login() {
 
       window.location = '/'
     } catch (error) {
-      console.error(error)
-      setLoading(false)
+      setRequesting(false)
+      setErrorMessage(error.message)
     }
   }
 
@@ -83,9 +85,9 @@ export default function Login() {
             color="primary"
             size="large"
             classes={{ root: 'Login-button' }}
-            disabled={loading || !isValidForm()}
+            disabled={requesting || !isValidForm()}
           >
-            {loading ? 'Logando...' : 'Entrar'}
+            {requesting ? 'Logando...' : 'Entrar'}
           </Button>
         </form>
       </Paper>

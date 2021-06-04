@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   Paper,
   TextField,
@@ -12,12 +12,13 @@ import { SettingsService } from '../../services'
 
 import './styles.css'
 import Loading from '../../common_components/Loading'
+import { GlobalContext } from '../../contexts/GlobalContext'
 
 const CURRENCY_TYPES = ['BRL', 'EUR', 'CAD']
 
 export default function Settings() {
+  const { setLoading, loading } = useContext(GlobalContext)
   const [saving, setSaving] = useState(false)
-  const [loading, setLoading] = useState(true)
   const [data, setData] = useState({
     currency: '',
     currencyValue: ''
