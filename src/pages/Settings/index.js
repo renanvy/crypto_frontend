@@ -6,7 +6,8 @@ import {
   Select,
   MenuItem,
   InputLabel,
-  FormControl
+  FormControl,
+  FormHelperText
 } from '@material-ui/core'
 import { SettingsService } from '../../services'
 
@@ -24,6 +25,10 @@ export default function Settings() {
     currencyValue: ''
   })
   const [currencies, setCurrencies] = useState([])
+  const [errors, setErrors] = useState({
+    currency: [],
+    value: []
+  })
 
   useEffect(() => {
     const fetchCurrencies = async () => {
@@ -48,7 +53,7 @@ export default function Settings() {
     }
 
     fetchCurrencies()
-  }, [])
+  }, [setLoading])
 
   const save = async (evt) => {
     evt.preventDefault()
@@ -68,8 +73,8 @@ export default function Settings() {
 
       window.location = '/'
     } catch (error) {
+      setErrors(error)
       setSaving(false)
-      console.error(error)
     }
   }
 
@@ -80,6 +85,10 @@ export default function Settings() {
       ...data,
       [evt.target.name]: value
     })
+  }
+
+  const renderError = (inputName) => {
+    return errors[inputName] && errors[inputName].length > 0
   }
 
   if (loading) {
@@ -102,7 +111,12 @@ export default function Settings() {
         <h1 className="Settings-title">Configurações</h1>
 
         <form onSubmit={save}>
-          <FormControl variant="outlined" fullWidth margin="normal">
+          <FormControl
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            error={renderError('currency')}
+          >
             <InputLabel id="currency-label">Moeda</InputLabel>
             <Select
               labelId="currency-label"
@@ -119,8 +133,13 @@ export default function Settings() {
             </Select>
           </FormControl>
 
+          {errors.currency && (
+            <FormHelperText error>{errors.currency[0]}</FormHelperText>
+          )}
+
           <TextField
             fullWidth
+            error={renderError('value')}
             name="currencyValue"
             label="Novo Valor"
             variant="outlined"
@@ -131,6 +150,9 @@ export default function Settings() {
               data.currency ? `Valor atual: ${currencies[data.currency]}` : ''
             }
           />
+          {errors.value && (
+            <FormHelperText error>{errors.value[0]}</FormHelperText>
+          )}
 
           <Button
             type="submit"
