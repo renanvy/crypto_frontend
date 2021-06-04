@@ -12,3 +12,21 @@
   align-self: flex-end;
   width: 100px;
 }
+
+@media screen and (max-width: 960px) {
+  .App-container {
+    width: 600px;
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .App-container {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .App-container {
+    width: 300px;
+  }
+}
