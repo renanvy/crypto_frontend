@@ -122,6 +122,7 @@ export default function Settings() {
               labelId="currency-label"
               value={data.currency}
               onChange={updateField}
+              id="currency"
               label="Moeda"
               name="currency"
             >
@@ -144,6 +145,7 @@ export default function Settings() {
             name="currencyValue"
             label="Novo Valor"
             variant="outlined"
+            id="currencyValue"
             margin="normal"
             onChange={updateField}
             value={data.currencyValue}
