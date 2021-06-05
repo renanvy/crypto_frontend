@@ -61,6 +61,7 @@ export default function Login() {
             type="email"
             name="email"
             label="E-mail"
+            id="email"
             variant="outlined"
             margin="normal"
             autoFocus
@@ -73,6 +74,7 @@ export default function Login() {
             fullWidth
             name="password"
             label="Senha"
+            id="password"
             variant="outlined"
             margin="normal"
             onChange={updateField}
