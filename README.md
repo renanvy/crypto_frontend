@@ -24,3 +24,12 @@ Para iniciar o servidor da API instale e execute o projeto https://github.com/re
 
 ### Iniciando a aplicação frontend
 Para iniciar a aplicação rode o seguinte comando no terminal: `yarn start`
+
+
+<img width="1048" alt="Captura de Tela 2021-06-05 às 14 01 02" src="https://user-images.githubusercontent.com/2266325/120899522-7fbb0b00-c606-11eb-9809-cdb02862da77.png">
+
+<img width="1072" alt="Captura de Tela 2021-06-05 às 14 01 56" src="https://user-images.githubusercontent.com/2266325/120899551-a5e0ab00-c606-11eb-8ac0-ab23e0b261c2.png">
+
+<img width="1069" alt="Captura de Tela 2021-06-05 às 14 02 05" src="https://user-images.githubusercontent.com/2266325/120899560-ad07b900-c606-11eb-9732-64dcce2437b5.png">
+
+<img width="945" alt="Captura de Tela 2021-06-05 às 09 57 24" src="https://user-images.githubusercontent.com/2266325/120899496-65812d00-c606-11eb-9aec-505356be2d68.png">
