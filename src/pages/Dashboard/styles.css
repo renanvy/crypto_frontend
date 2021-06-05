@@ -14,7 +14,7 @@
 }
 
 .Dashboard-cards {
-  margin-top: 60px;
+  margin-top: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

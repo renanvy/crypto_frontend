@@ -46,7 +46,7 @@ export default function Dashboard() {
     }
 
     calculateBtc()
-  }, [])
+  }, [setErrorMessage, setLoading])
 
   const renderPrice = (currency) => {
     if (calculating) {
@@ -65,7 +65,7 @@ export default function Dashboard() {
   return (
     <div className="Dashboard">
       <h1 className="Dashboard-title">
-        Bem-vindo ao painel de BitCoins da Trybe!
+        Bem-vindo ao painel BitCoins da Trybe!
       </h1>
 
       <Divider />
